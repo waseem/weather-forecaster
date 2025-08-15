@@ -33,6 +33,9 @@
   - Accepting the address as an input.
 - `Geocoding::Service` is responsible for:
   - Retrieving the latitude, longitude, country code, and postal code of the provided address after geocoding. (1 request/second; see limitation below)
+- `OpenWeatherMap::Service` is responsible for:
+  - Calling the open weather map API to retrieve the current forecast.
+- `OpenWeatherMap::Forecast` is a wrapper object to easily store and pass around the forecast.
 
 ## Assumptions
 
