@@ -5,7 +5,12 @@ class DashboardController < ApplicationController
     @address = params[:address].presence || DEFAULT_ADDRESS
     begin
       @geocoded = Geocoding::Service.call(@address)
-      @forecast = OpenWeatherMap::Service.new.call(@geocoded.latitude, @geocoded.longitude)
+      @forecast = OpenWeatherMap::Service.new.call(
+        @geocoded.latitude,
+        @geocoded.longitude,
+        @geocoded.country_code,
+        @geocoded.postal_code
+      )
     rescue => e
       flash.alert = e.message
     end

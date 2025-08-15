@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe "Dashboards", type: :system do
-  let(:geocoded) { OpenStruct.new(latitude: 37.32, longitude: -122.03, address:"10500 N De Anza Blvd") }
+  let(:geocoded) {
+    OpenStruct.new(
+      latitude: 37.32,
+      longitude: -122.03,
+      address:"10500 N De Anza Blvd",
+      country_code: "us",
+      postal_code: "95014"
+    )
+  }
   let(:forecast_service) { double("Forecast Service") }
   let(:forecast) do
     instance_double(
@@ -22,7 +30,13 @@ RSpec.describe "Dashboards", type: :system do
   context "successful visit" do
     before do
       allow(Geocoding::Service).to receive(:call) { geocoded }
-      allow(forecast_service).to receive(:call).with(geocoded.latitude, geocoded.longitude) { forecast }
+      allow(forecast_service).to receive(:call)
+        .with(
+          geocoded.latitude,
+          geocoded.longitude,
+          geocoded.country_code,
+          geocoded.postal_code
+        ) { forecast }
     end
 
     it "shows forecast for an address" do
@@ -50,7 +64,13 @@ RSpec.describe "Dashboards", type: :system do
       it "shows error in flash message" do
         allow(Geocoding::Service).to receive(:call) { geocoded }
         allow(forecast_service).to(
-          receive(:call).with(geocoded.latitude, geocoded.longitude) do
+          receive(:call)
+            .with(
+              geocoded.latitude,
+              geocoded.longitude,
+              geocoded.country_code,
+              geocoded.postal_code
+            ) do
             raise OpenWeatherMap::Service::UnavailableError.new("An error occurred while requesting forecast")
           end
         )

@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe "Dashboards", type: :request do
-  let(:geocoded) { OpenStruct.new(latitude: 37.32, longitude: -122.03, address: "10500 N De Anza Blvd") }
+  let(:geocoded) {
+    OpenStruct.new(
+      latitude: 37.32,
+      longitude: -122.03,
+      address:"10500 N De Anza Blvd",
+      country_code: "us",
+      postal_code: "95014"
+    )
+  }
   let(:forecast_service) { double("Forecast Service") }
   let(:forecast) do
     instance_double(
@@ -21,7 +29,13 @@ RSpec.describe "Dashboards", type: :request do
   describe "GET /index" do
     it "shows the page successfully" do
       allow(Geocoding::Service).to receive(:call) { geocoded }
-      allow(forecast_service).to receive(:call).with(geocoded.latitude, geocoded.longitude) { forecast }
+      allow(forecast_service).to receive(:call)
+        .with(
+          geocoded.latitude,
+          geocoded.longitude,
+          geocoded.country_code,
+          geocoded.postal_code
+        ) { forecast }
 
       get root_path
 

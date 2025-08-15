@@ -6,6 +6,8 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
   let(:endpoint) { "data/2.5/weather" }
   let(:latitude) { 37.323 }
   let(:longitude) { -122.0322 }
+  let(:country_code) { "us" }
+  let(:postal_code) { "95014" }
   let(:response_body) do
   end
 
@@ -20,7 +22,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
 
     it "logs the error and exits gracefully" do
       expect(Rails.logger).to receive(:error).with(/API unreachable/)
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::UnavailableError,
         "Something went wrong while requesting forecast. Please try again later."
       )
@@ -30,7 +32,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
   context "when response is empty" do
     it "raises empty response error" do
       stubs.get(endpoint) { |env| [200, {}, {}]}
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::EmptyResponseError,
         "OpenWeather: empty response. Try again later."
       )
@@ -40,7 +42,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
   context "when main section is empty" do
     it "raises empty main section error" do
       stubs.get(endpoint) { |env| [200, {}, { "main" => nil }]}
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::MainSectionEmptyError,
         "OpenWeather: empty main section. Try again later."
       )
@@ -50,7 +52,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
   context "when temperature is missing" do
     it "raises temperature missing error" do
       stubs.get(endpoint) { |env| [200, {}, { "main" => { "temp" => nil } }]}
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::TemperatureMissingError,
         "OpenWeather: temperature is missing. Try again later."
       )
@@ -71,7 +73,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
           }
         ]
       end
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::TemperatureMinMissingError,
         "OpenWeather: minimum temperature is missing. Try again later."
       )
@@ -93,7 +95,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
           }
         ]
       end
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::TemperatureMaxMissingError,
         "OpenWeather: maximum temperature is missing. Try again later."
       )
@@ -116,7 +118,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
           }
         ]
       end
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::WeatherSectionEmptyError,
         "OpenWeather: empty weather section. Try again later."
       )
@@ -137,7 +139,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
           }
         ]
       end
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::WeatherSectionEmptyError,
         "OpenWeather: empty weather section. Try again later."
       )
@@ -164,7 +166,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
           }
         ]
       end
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::WeatherDescriptionMissingError,
         "OpenWeather: missing weather description. Try again later."
       )
@@ -192,7 +194,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
           }
         ]
       end
-      expect { described_class.new.call(latitude, longitude) }.to raise_error(
+      expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::WeatherIconMissingError,
         "OpenWeather: missing weather icon. Try again later."
       )
@@ -218,7 +220,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
           }
         ]
       end
-      forecast = described_class.new.call(latitude, longitude)
+      forecast = described_class.new.call(latitude, longitude, country_code, postal_code)
 
       expect(forecast.temperature).to eq(17.25)
       expect(forecast.temperature_min).to eq(14.89)

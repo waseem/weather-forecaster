@@ -25,7 +25,7 @@ module OpenWeatherMap
       end
     end
 
-    def call(latitude, longitude)
+    def call(latitude, longitude, country_code, postal_code)
       begin
         response = connection.get("data/2.5/weather", {
           lat: latitude,
