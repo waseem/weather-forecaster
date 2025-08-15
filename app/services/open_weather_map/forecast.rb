@@ -4,7 +4,8 @@ module OpenWeatherMap
     :temperature_min,
     :temperature_max,
     :description,
-    :icon
+    :icon,
+    :from_cache
   ) do |klass|
     def icon_url
       return "" if icon.blank?

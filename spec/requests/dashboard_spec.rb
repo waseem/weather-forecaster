@@ -7,7 +7,7 @@ RSpec.describe "Dashboards", type: :request do
       longitude: -122.03,
       address:"10500 N De Anza Blvd",
       country_code: "us",
-      postal_code: "95014"
+      postal_code: "95014",
     )
   }
   let(:forecast_service) { double("Forecast Service") }
@@ -18,7 +18,8 @@ RSpec.describe "Dashboards", type: :request do
       temperature_min: 14.89,
       temperature_max: 18.75,
       icon_url: "https://openweathermap.org/img/wn/10d@2x.png",
-      description: "clear sky"
+      description: "clear sky",
+      from_cache: true
     )
   end
 

@@ -11,6 +11,11 @@ class DashboardController < ApplicationController
         @geocoded.country_code,
         @geocoded.postal_code
       )
+      if @forecast.from_cache
+        flash.notice = "fetched from cache"
+      else
+        flash.notice = "not fetched from cache"
+      end
     rescue => e
       flash.alert = e.message
     end

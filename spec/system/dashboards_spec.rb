@@ -18,7 +18,8 @@ RSpec.describe "Dashboards", type: :system do
       temperature_min: 14.89,
       temperature_max: 18.75,
       icon_url: "https://openweathermap.org/img/wn/10d@2x.png",
-      description: "clear sky"
+      description: "clear sky",
+      from_cache: true
     )
   end
 
@@ -47,6 +48,11 @@ RSpec.describe "Dashboards", type: :system do
     it "shows an address input field" do
       visit root_path
       expect(page).to have_field("address")
+    end
+
+    it "shows that forecast was fetched from the cache" do
+      visit root_path
+      expect(page).to have_text("fetched from cache")
     end
   end
 
