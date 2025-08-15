@@ -6,9 +6,17 @@
           else              "bg-blue-100 border-blue-400 text-blue-700"
         end %>
 
-    <div class="border-l-4 p-4 mb-4 rounded shadow-sm <%= color_classes %> flex items-center justify-between">
+    <div class="flash-auto-hide border-l-4 p-4 mb-4 rounded shadow-sm <%= color_classes %> flex items-center justify-between">
       <span><%= message %></span>
       <button type="button" onclick="this.parentElement.remove()" class="font-bold ml-4">×</button>
     </div>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".flash-auto-hide").forEach(el => {
+      setTimeout(() => el.remove(), 5000);
+    });
+  });
+</script>
