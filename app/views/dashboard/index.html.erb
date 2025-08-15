@@ -1,0 +1,11 @@
+<h1>Your weather forecast</h1>
+
+<%= form_with(method: :get, url: root_url, local: true) do %>
+  <div class="mb-3 text-start">
+    <%= text_field_tag(:address, "fooo", class: "form-control", placeholder: "Address", required: true) %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag("Submit", class: "btn btn-primary") %>
+  </div>
+<% end %>

@@ -42,6 +42,7 @@ gem "thruster", require: false
 
 group :development, :test do
   gem "rspec-rails", "~> 8.0.0"
+  gem "capybara"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
