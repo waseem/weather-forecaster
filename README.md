@@ -19,6 +19,13 @@
 - `bundle exec rspec spec` # Run all specs
 - `bundle exec rubocop` # Run rubocop linting rules
 
+## Overview of operations
+- Getting weather forecast for the given address
+  - I am choosing to convert the provided address to a latitude and longitude by using the [`geocoder`](https://github.com/alexreisner/geocoder) rubygem.
+  - I am using the (default) [Nominatim](https://github.com/alexreisner/geocoder/blob/master/README_API_GUIDE.md#nominatim-nominatim) API for geocoding the address.
+  - Once the latitude and longitude is acquired, I am passing it to the OpenWeatherMap REST API to fetch the forecast.
+  - The retrieved forecast is then displayed to the user.
+
 ## Technical overview
 
 - `DashboardController` is responsible for:
@@ -26,3 +33,6 @@
   - Accepting the address as an input.
 
 ## Assumptions
+
+## Limitations
+- The default geocoder API Nominatim has a limit of 1 request per second for geocoding. It can easily be increased by utilizing other services like ArcGis, Google, or Bing.
