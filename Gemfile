@@ -41,6 +41,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 gem "geocoder"
 gem "faraday"
+gem "tailwindcss-rails"
 
 group :development, :test do
   gem "rspec-rails", "~> 8.0.0"
