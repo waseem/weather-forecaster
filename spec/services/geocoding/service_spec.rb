@@ -124,7 +124,7 @@ RSpec.describe Geocoding::Service, type: :service do
       end
     end
 
-    context "missing postal code code" do
+    context "missing postal code" do
       before do
         Geocoder::Lookup::Test.add_stub(
           address,
@@ -142,10 +142,35 @@ RSpec.describe Geocoding::Service, type: :service do
         )
       end
 
-      it "raises for user to notify missing country code" do
+      it "raises for user to notify missing postal code" do
         expect {
           described_class.call(address)
         }.to raise_error(Geocoding::Service::MissingPostalCodeError, "Could not determine the postal code of address.")
+      end
+    end
+
+    context "missing address " do
+      before do
+        Geocoder::Lookup::Test.add_stub(
+          address,
+          [
+            {
+              "coordinates" => [37.32, -122.03],
+              "address" => nil,
+              "state" => "California",
+              "state_code" => "CA",
+              "country" => "United States",
+              "country_code" => "us",
+              "postal_code" => "95014"
+            }
+          ]
+        )
+      end
+
+      it "raises for user to notify missing address" do
+        expect {
+          described_class.call(address)
+        }.to raise_error(Geocoding::Service::MissingAddressError, "Could not determine the address.")
       end
     end
   end
