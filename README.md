@@ -36,9 +36,11 @@
   - Retrieving the latitude, longitude, country code, and postal code of the provided address after geocoding. (1 request/second; see limitation below)
 - `OpenWeatherMap::Service` is responsible for:
   - Calling the open weather map API to retrieve the current forecast.
+  - The response is cached for a combination of `country_code-postal_code` for 30 minutes.
 - `OpenWeatherMap::Forecast` is a wrapper object to easily store and pass around the forecast.
 
 ## Assumptions
 
 ## Limitations
 - The default geocoder API Nominatim has a limit of 1 request per second for geocoding. It can easily be increased by utilizing other services like ArcGis, Google, or Bing.
+- I am using `ActiveSupport::Cache::MemoryStore` as the cache backend. It can be swapped for something else like memcached.
