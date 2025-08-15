@@ -15,6 +15,7 @@
 - `bundle exec rails db:create`
 - `bundle exec rails db:migrate`
 - `bundle exec rails s`
+- `bundle exec rails tailwindcss:watch`
 - Visit `http://localhost:3000`
 - `bundle exec rspec spec` # Run all specs
 - `bundle exec rubocop` # Run rubocop linting rules
