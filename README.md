@@ -6,6 +6,9 @@
 - Rails `8.0.2`
 - Postgres
 
+## Production deployment
+
+- Access it at [https://lit-refuge-96424-8e3c77f7ba28.herokuapp.com/](https://lit-refuge-96424-8e3c77f7ba28.herokuapp.com/)
 ## Application setup
 
 - Ensure you have Ruby `3.4.4` installed and selected. `.tool-versions` (works with `asdf`) to lock the versions.
@@ -44,3 +47,4 @@
 ## Limitations
 - The default geocoder API Nominatim has a limit of 1 request per second for geocoding. It can easily be increased by utilizing other services like ArcGis, Google, or Bing.
 - I am using `ActiveSupport::Cache::MemoryStore` as the cache backend. It can be swapped for something else like memcached.
+-
