@@ -43,6 +43,8 @@ gem "thruster", require: false
 gem "geocoder"
 gem "faraday"
 gem "tailwindcss-rails"
+gem "dalli"
+gem "memcachier"
 
 group :development, :test do
   gem "rspec-rails", "~> 8.0.0"

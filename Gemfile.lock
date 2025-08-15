@@ -98,6 +98,7 @@ GEM
     connection_pool (2.5.3)
     crass (1.0.6)
     csv (3.3.5)
+    dalli (3.2.8)
     date (3.4.1)
     debug (1.11.0)
       irb (~> 1.10)
@@ -163,6 +164,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
+    memcachier (0.0.2)
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
@@ -395,12 +397,14 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
+  dalli
   debug
   faraday
   geocoder
   importmap-rails
   jbuilder
   kamal
+  memcachier
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
