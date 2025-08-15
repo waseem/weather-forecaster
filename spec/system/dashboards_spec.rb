@@ -1,9 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe "Dashboards", type: :system do
-  let(:geocoded) { OpenStruct.new(latitude: 37.32, longitude: -122.03) }
+  let(:geocoded) { OpenStruct.new(latitude: 37.32, longitude: -122.03, address:"10500 N De Anza Blvd") }
   let(:forecast_service) { double("Forecast Service") }
-  let(:forecast) { instance_double("Forecast", temperature: 17.25) }
+  let(:forecast) do
+    instance_double(
+      "Forecast",
+      temperature: 17.25,
+      temperature_min: 14.89,
+      temperature_max: 18.75,
+      icon_url: "https://openweathermap.org/img/wn/10d@2x.png",
+      description: "clear sky"
+    )
+  end
 
   before do
     driven_by(:rack_test)
@@ -18,7 +27,7 @@ RSpec.describe "Dashboards", type: :system do
 
     it "shows forecast for an address" do
       visit root_path
-      expect(page).to have_text("Your weather forecast")
+      expect(page).to have_text("Your Weather Forecast")
     end
 
     it "shows an address input field" do
