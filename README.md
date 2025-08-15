@@ -31,6 +31,8 @@
 - `DashboardController` is responsible for:
   - Displaying the weather forecast for the entered address.
   - Accepting the address as an input.
+- `Geocoding::Service` is responsible for:
+  - Retrieving the latitude, longitude, country code, and postal code of the provided address after geocoding. (1 request/second; see limitation below)
 
 ## Assumptions
 
