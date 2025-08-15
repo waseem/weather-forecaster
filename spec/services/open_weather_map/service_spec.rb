@@ -31,7 +31,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
 
   context "when response is empty" do
     it "raises empty response error" do
-      stubs.get(endpoint) { |env| [200, {}, {}]}
+      stubs.get(endpoint) { |env| [200, {}, {}] }
       expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::EmptyResponseError,
         "OpenWeather: empty response. Try again later."
@@ -41,7 +41,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
 
   context "when main section is empty" do
     it "raises empty main section error" do
-      stubs.get(endpoint) { |env| [200, {}, { "main" => nil }]}
+      stubs.get(endpoint) { |env| [200, {}, { "main" => nil }] }
       expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::MainSectionEmptyError,
         "OpenWeather: empty main section. Try again later."
@@ -51,7 +51,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
 
   context "when temperature is missing" do
     it "raises temperature missing error" do
-      stubs.get(endpoint) { |env| [200, {}, { "main" => { "temp" => nil } }]}
+      stubs.get(endpoint) { |env| [200, {}, { "main" => { "temp" => nil } }] }
       expect { described_class.new.call(latitude, longitude, country_code, postal_code) }.to raise_error(
         OpenWeatherMap::Service::TemperatureMissingError,
         "OpenWeather: temperature is missing. Try again later."
@@ -135,7 +135,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
               "temp_min" => 14.89,
               "temp_max" => 18.75
             },
-            "weather" => [],
+            "weather" => []
           }
         ]
       end
@@ -162,7 +162,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
               {
                 "description" => nil
               }
-            ],
+            ]
           }
         ]
       end
@@ -190,7 +190,7 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
                 "description" => "few clouds",
                 "icon" => nil
               }
-            ],
+            ]
           }
         ]
       end
@@ -211,12 +211,12 @@ RSpec.describe OpenWeatherMap::Service, type: :service do
             "main" => {
               "temp" => 17.25,
               "temp_min" => 14.89,
-              "temp_max" => 18.75,
+              "temp_max" => 18.75
             },
             "weather" => [{
               "description" => "few clouds",
               "icon" => "02n"
-            }],
+            }]
           }
         ]
       end

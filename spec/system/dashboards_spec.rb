@@ -5,7 +5,7 @@ RSpec.describe "Dashboards", type: :system do
     OpenStruct.new(
       latitude: 37.32,
       longitude: -122.03,
-      address:"10500 N De Anza Blvd",
+      address: "10500 N De Anza Blvd",
       country_code: "us",
       postal_code: "95014"
     )

@@ -18,7 +18,7 @@ module OpenWeatherMap
     def initialize
       @connection = Faraday.new(
         url: API_URL,
-        params: { appid: Rails.application.credentials[:openweather_api_key]}
+        params: { appid: Rails.application.credentials[:openweather_api_key] }
       ) do |builder|
         builder.response :json # Encode request body as json and set the Content-Type header
         builder.request :json # Decode response body to json
@@ -90,7 +90,6 @@ module OpenWeatherMap
     end
 
     def prepare_forecast(response, from_cache)
-
       Forecast.new(
         temperature: response[:temperature],
         temperature_min: response[:temperature_min],
