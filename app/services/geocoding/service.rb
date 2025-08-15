@@ -10,7 +10,7 @@ module Geocoding
     class << self
       def call(address)
         response = Geocoder.search(address)
-        raise EmptyResponseError.new("Could not geocode address. Please enter a valid address.") if response.blank?
+        raise EmptyResponseError.new("Geocoding: failed, enter valid address") if response.blank?
 
         geocoded = response.first
         validate_response!(geocoded)
@@ -20,11 +20,11 @@ module Geocoding
       private
 
       def validate_response!(geocoded)
-        raise MissingLatitudeError.new("Could not determine the latitude of address.") if geocoded.latitude.blank?
-        raise MissingLongitudeError.new("Could not determine the longitude of address.") if geocoded.longitude.blank?
-        raise MissingCountryCode.new("Could not determine the country code of address.") if geocoded.country_code.blank?
-        raise MissingPostalCodeError.new("Could not determine the postal code of address.") if geocoded.postal_code.blank?
-        raise MissingAddressError.new("Could not determine the address.") if geocoded.address.blank?
+        raise MissingLatitudeError.new("Geocoding: missing latitude") if geocoded.latitude.blank?
+        raise MissingLongitudeError.new("Geocoding: missing longitude") if geocoded.longitude.blank?
+        raise MissingCountryCode.new("Geocoding: missing country code") if geocoded.country_code.blank?
+        raise MissingPostalCodeError.new("Geocoding: missing postal code") if geocoded.postal_code.blank?
+        raise MissingAddressError.new("Geocoding: missing address") if geocoded.address.blank?
       end
     end
   end

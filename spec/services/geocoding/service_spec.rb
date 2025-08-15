@@ -45,7 +45,7 @@ RSpec.describe Geocoding::Service, type: :service do
         allow(Geocoder).to receive(:search).with(address).and_return([])
         expect {
           described_class.call(address)
-        }.to raise_error(Geocoding::Service::EmptyResponseError, "Could not geocode address. Please enter a valid address.")
+        }.to raise_error(Geocoding::Service::EmptyResponseError, "Geocoding: failed, enter valid address")
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe Geocoding::Service, type: :service do
       it "raises for user to notify missing latitude" do
         expect {
           described_class.call(address)
-        }.to raise_error(Geocoding::Service::MissingLatitudeError, "Could not determine the latitude of address.")
+        }.to raise_error(Geocoding::Service::MissingLatitudeError, "Geocoding: missing latitude")
       end
     end
 
@@ -95,7 +95,7 @@ RSpec.describe Geocoding::Service, type: :service do
       it "raises for user to notify missing longitude" do
         expect {
           described_class.call(address)
-        }.to raise_error(Geocoding::Service::MissingLongitudeError, "Could not determine the longitude of address.")
+        }.to raise_error(Geocoding::Service::MissingLongitudeError, "Geocoding: missing longitude")
       end
     end
 
@@ -120,7 +120,7 @@ RSpec.describe Geocoding::Service, type: :service do
       it "raises for user to notify missing country code" do
         expect {
           described_class.call(address)
-        }.to raise_error(Geocoding::Service::MissingCountryCode, "Could not determine the country code of address.")
+        }.to raise_error(Geocoding::Service::MissingCountryCode, "Geocoding: missing country code")
       end
     end
 
@@ -145,7 +145,7 @@ RSpec.describe Geocoding::Service, type: :service do
       it "raises for user to notify missing postal code" do
         expect {
           described_class.call(address)
-        }.to raise_error(Geocoding::Service::MissingPostalCodeError, "Could not determine the postal code of address.")
+        }.to raise_error(Geocoding::Service::MissingPostalCodeError, "Geocoding: missing postal code")
       end
     end
 
@@ -170,7 +170,7 @@ RSpec.describe Geocoding::Service, type: :service do
       it "raises for user to notify missing address" do
         expect {
           described_class.call(address)
-        }.to raise_error(Geocoding::Service::MissingAddressError, "Could not determine the address.")
+        }.to raise_error(Geocoding::Service::MissingAddressError, "Geocoding: missing address")
       end
     end
   end
